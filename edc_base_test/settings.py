@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+APP_NAME = 'edc_base_test'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ETC_DIR = os.path.join('/etc/', APP_NAME)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_crypto_fields.apps.AppConfig',
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'edc_registration.apps.AppConfig',
     'edc_timepoint.apps.AppConfig',
     'edc_visit_tracking.apps.AppConfig',
+    'edc_visit_schedule.apps.AppConfig',
     'edc_metadata.apps.AppConfig',
     'edc_base.apps.AppConfig',
     'edc_base_test.apps.AppConfig',
@@ -94,6 +97,11 @@ DATABASES = {
     }
 }
 
+DASHBOARD_URL_NAMES = {
+    'subject_listboard_url': 'edc_subject_dashboard:subject_listboard_url',
+    'subject_dashboard_url': 'edc_subject_dashboard:subject_dashboard_url',
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -132,3 +140,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+# AUTO_CREATE_KEYS = True
+KEY_PATH = os.path.join(BASE_DIR, 'crypto_fields')
