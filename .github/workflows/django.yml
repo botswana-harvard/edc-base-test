@@ -29,14 +29,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8
         pip install coverage
+        pip install coveralls 
         pip install -r requirements.txt
         pip uninstall pycrypto -y
         pip install pycryptodome
-    - name: Run Tests
+    - name: Run flake8
       run: |
         flake8 edc_base_test
-        python manage.py test
     - name: Coverage 
       run: |
         coverage run manage.py test
         coverage report -m
+    - name: Upload to Coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage.xml
